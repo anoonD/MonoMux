@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [[ "$#" != 1 ]]; then
+    echo "Please provide at least 1 arguments"
+    exit
+fi
+
+. ./env
+
+anime="$anime_dir/$1"
+audio="$audio_dir/$1"
+subs="$subs_dir/$1"
+
+if [[ ! -d "$anime" ]]; then
+    echo "No anime for $1"
+    exit
+elif [[ ! -d "$audio" ]]; then
+    echo "No audio for $1"
+    exit
+elif [[ ! -d "$subs" ]]; then
+    echo "No subs for $1"
+    exit
+fi
+
+num_eps=$(ls -1 $anime | rg Ep | wc -l)
+
+for i in $(seq -w 01 "$num_eps"); do
+    # force glob to happen to find all the files
+    #a=("$anime"/*Ep$i*.mkv)
+    #c=("$audio"/*Ep$i*.mp3)
+    #s=("$subs"/*Ep$i*.ass)
+    #a_file=${a[0]}
+    #c_file=${c[0]}
+    #s_file=${s[0]}
+    a="$(find "$anime/*Ep$i*.mkv")"
+    c="$(find "$audio/*Ep$i*.mp3")"
+    s="$(find "$subs/*Ep$i*.ass")"
+
+    if [[ -f $a_file && -f $c_file && -f $s_file ]]; then
+        echo mkvmerge "$a_file" "$c_file" "$s_file" -o "$anime/$i.mkv"
+        echo
+    fi
+done
+
+echo Done
