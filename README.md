@@ -7,7 +7,7 @@ with commentary audio+subs
 
 To merge the files, you need `mkvmerge` installed on your computer.
 On Arch Linux you can install this with `pacman -S mkvtoolnix-cli`.
-Unsure what the instillation process is on other Linux distros or MacOS.
+I'm not sure what the instillation process is on other Linux distros or MacOS.
 
 This script also uses `seq`, which while ubiquitous is not POSIX, so I
 may as well mention it.
@@ -39,8 +39,11 @@ To merge commentary files for Bakemonogatari, run
 Then, assuming that
 
 * All your files are properly named
-* The directory $anime_dir/Bakemonogatari exists and contains your .mkv files
-* The directory $audio_dir/Bakemonogatari exists and contains your .mp3 files
-* The directory $subs_dir/Bakemonogatari exists and contains your .ass files
+* The directory `$anime_dir/Bakemonogatari` exists and contains your .mkv files
+* The directory `$audio_dir/Bakemonogatari` exists and contains your .mp3 files
+* The directory `$subs_dir/Bakemonogatari` exists and contains your .ass files
 
 Then MonoMux should (probably) successfully generate merged .mkv files!
+Generated files will be placed alongside the original .mkv files.
+MonoMux will __NOT__ overwrite your original files, so there is no risk of losing
+anything.
