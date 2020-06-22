@@ -1,35 +1,32 @@
 #!/bin/bash
 
-if [[ "$#" != 1 ]]; then
-    echo "Please provide at least 1 arguments"
-    exit
-fi
-
 . ./env
 
-anime="$anime_dir/$1"
-audio="$audio_dir/$1"
-subs="$subs_dir/$1"
+for mono in "$@"; do
+    anime="$anime_dir/$mono"
+    audio="$audio_dir/$mono"
+    subs="$subs_dir/$mono"
 
-if [[ ! -d "$anime" ]]; then
-    echo "No anime for $1"
-    exit
-elif [[ ! -d "$audio" ]]; then
-    echo "No audio for $1"
-    exit
-elif [[ ! -d "$subs" ]]; then
-    echo "No subs for $1"
-    exit
-fi
-
-num_eps=$(find "$anime" -maxdepth 1 | rg Ep | wc -l)
-
-for i in $(seq -w 01 "$num_eps"); do
-    a="$(find "$anime" -name "*Ep$i*.mkv")"
-    c="$(find "$audio" -name "*Ep$i*.mp3")"
-    s="$(find "$subs" -name "*Ep$i*.ass")"
-
-    if [[ -f $a && -f $c && -f $s ]]; then
-        mkvmerge "$a" "$c" "$s" -o "$anime/$i.mkv"
+    if [[ ! -d "$anime" ]]; then
+        echo "No anime for $mono"
+        continue
+    elif [[ ! -d "$audio" ]]; then
+        echo "No audio for $mono"
+        continue
+    elif [[ ! -d "$subs" ]]; then
+        echo "No subs for $mono"
+        continue
     fi
+
+    num_eps=$(find "$anime" -maxdepth 1 | rg Ep | wc -l)
+
+    for i in $(seq -w 01 "$num_eps"); do
+        a="$(find "$anime" -name "*Ep$i*.mkv")"
+        c="$(find "$audio" -name "*Ep$i*.mp3")"
+        s="$(find "$subs" -name "*Ep$i*.ass")"
+
+        if [[ -f "$a" && -f "$c" && -f "$s" ]]; then
+            mkvmerge "$a" "$c" "$s" -o "$anime/$i.mkv"
+        fi
+    done
 done
