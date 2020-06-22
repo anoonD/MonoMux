@@ -30,6 +30,6 @@ for i in $(seq -w 01 "$num_eps"); do
     s="$(find "$subs" -name "*Ep$i*.ass")"
 
     if [[ -f $a && -f $c && -f $s ]]; then
-        echo mkvmerge "$a" "$c" "$s" -o "$anime/$i.mkv"
+        mkvmerge "$a" "$c" "$s" -o "$anime/$i.mkv"
     fi
 done
