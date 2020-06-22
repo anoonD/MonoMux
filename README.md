@@ -8,6 +8,7 @@ with commentary audio+subs
 To merge the files, you need `mkvmerge` installed on your computer.
 On Arch Linux you can install this with `pacman -S mkvtoolnix-cli`.
 I'm not sure what the instillation process is on other Linux distros or MacOS.
+If you're on Windows... I'm not sure how usable WSL is for something like this.
 
 This script also uses `seq`, which while ubiquitous is not POSIX, so I
 may as well mention it.
