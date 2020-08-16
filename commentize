@@ -21,9 +21,9 @@ for mono in "$@"; do
     num_eps=$(find "$anime" -maxdepth 1 | rg Ep | wc -l)
 
     for i in $(seq -w 01 "$num_eps"); do
-        a="$(find "$anime" -name "*Ep$i*.mkv")"
-        c="$(find "$audio" -name "*Ep$i*.mp3")"
-        s="$(find "$subs" -name "*Ep$i*.ass")"
+        a="$(find "$anime" -maxdepth 1 -name "*Ep$i*.mkv")"
+        c="$(find "$audio" -maxdepth 1 \( -name "*Ep$i*.mp3" -o -name "*Ep$i*.mka" \) )"
+        s="$(find "$subs"  -maxdepth 1 -name "*Ep$i*.ass")"
 
         if [[ -f "$a" && -f "$c" && -f "$s" ]]; then
             mkvmerge "$a" "$c" "$s" -o "$anime/$i.mkv"
