@@ -26,7 +26,7 @@ for mono in "$@"; do
         s="$(find "$subs"  -maxdepth 1 -name "*Ep$i*.ass")"
 
         if [[ -f "$a" && -f "$c" && -f "$s" ]]; then
-            mkvmerge "$a" "$c" "$s" -o "$anime/$i.mkv"
+            mkvmerge "$a" "$c" "$s" -o "$anime/new${mono}_Ep${i}.mkv"
         fi
     done
 done
